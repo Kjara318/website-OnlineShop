@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chiara Website</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+     <link rel="stylesheet" href="style.css"/>
+     <link rel="stylesheet" href="css/glide.core.min.css"/>
+     <link rel="stylesheet" href="css/glide.theme.min.css"/>
+    </head>
+
+    <body>
+        <section id ="header" >
+            <a href="#"><img src="Foto/logo.png" class="logo" alt =""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href = "index.html">Home </a></li>
+                <li><a  href = "shop.html">Shop </a></li>
+                <li><a href = "blog.html">Blog </a></li>
+                <li><a  href = "about.html">About </a></li>
+                <li><a  href = "contact.html">Contact </a></li>
+                <li id="lg-bag"><a  class="active" href ="cart.html"> <i class='far fa-bags-shopping'></i> </a></li>
+                <a href ="#" id="close"><i class='far fa-times'></i></a> 
+            </ul>
+        </div>
+        <div id="mobile">
+        <a href ="cart.html"> <i class='far fa-bags-shopping'></i> </a></li>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+    <section id="page-header" class="about-header">
+        <h2>#let's_talk</h2>
+        <p>LEAVE A MESSAGE,We love to hear from you!</p>
+    </section>
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody id="cart-body">
+                <tr>
+                    <td><a href="#" class="remove-item"><i class="far fa-times-circle"></i></a></td>
+                    <td><img src="Foto/products/f1.jpg" alt=""></td>
+                    <td>Cartoon Astronaut T-Shirts</td>
+                    <td class="price">$80</td>
+                    <td><input type="number" class="quantity" value="1"></td>
+                    <td class="subtotal">$80</td>
+                </tr>
+                <tr>
+                    <td><a href="#" class="remove-item"><i class="far fa-times-circle"></i></a></td>
+                    <td><img src="Foto/products/f2.jpg" alt=""></td>
+                    <td>Cartoon Flower T-Shirts</td>
+                    <td class="price">$70</td>
+                    <td><input type="number" class="quantity" value="1"></td>
+                    <td class="subtotal">$70</td>
+                </tr>
+                <tr>
+                    <td><a href="#" class="remove-item"><i class="far fa-times-circle"></i></a></td>
+                    <td><img src="Foto/products/f3.jpg" alt=""></td>
+                    <td>Cartoon Flower T-Shirts</td>
+                    <td class="price">$75</td>
+                    <td><input type="number" class="quantity" value="1"></td>
+                    <td class="subtotal">$75</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section id="cart-add" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" placeholder="Coupon code">
+                <button class="normal">APPLY</button>
+            </div>
+        </div>
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td id="cart-subtotal">$225</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong id="cart-total">$225</strong></td>
+                </tr>
+            </table>
+        </div>   
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to calculate cart subtotal
+            function calculateSubtotal() {
+                var subtotals = document.querySelectorAll(".subtotal");
+                var subtotal = 0;
+
+                // Calculate subtotal by summing up all subtotals
+                subtotals.forEach(function(subtotalElement) {
+                    subtotal += parseFloat(subtotalElement.textContent.replace('$', ''));
+                });
+
+                // Update the cart subtotal
+                document.getElementById("cart-subtotal").textContent = "$" + subtotal.toFixed(2);
+
+                // Update the cart total (assuming shipping is free)
+                document.getElementById("cart-total").textContent = "$" + subtotal.toFixed(2);
+            }
+
+            // Get all elements with class "remove-item"
+            var removeButtons = document.querySelectorAll(".remove-item");
+
+            // Loop through each remove button and attach click event
+            removeButtons.forEach(function(button) {
+                button.addEventListener("click", function(event) {
+                    // Prevent default link behavior
+                    event.preventDefault();
+
+                    // Remove the parent <tr> element when the remove button is clicked
+                    this.closest("tr").remove();
+
+                    // Recalculate subtotal
+                    calculateSubtotal();
+                });
+            });
+
+            // Listen for changes in quantity inputs
+            var quantityInputs = document.querySelectorAll(".quantity");
+            quantityInputs.forEach(function(input) {
+                input.addEventListener("change", function() {
+                    // Update subtotal for the corresponding row
+                    var row = this.closest("tr");
+                    var price = parseFloat(row.querySelector(".price").textContent.replace('$', ''));
+                    var quantity = parseInt(this.value);
+                    var subtotal = price * quantity;
+                    row.querySelector(".subtotal").textContent = "$" + subtotal.toFixed(2);
+
+                    // Recalculate subtotal
+                    calculateSubtotal();
+                });
+            });
+
+            // Calculate initial subtotal on page load
+            calculateSubtotal();
+        });
+    </script>
+        
+<footer class="section-p1">
+    <div class="col">
+        <img class="logo" src="Foto/logo.png" alt="">
+        <h4>Contact</h4>
+        <p>Address: <strong>[Address]</strong> Rruga Abdi Toptani,Tirane,Qarku Tiranes 1001</p>
+        <p>Phone: <strong>[Phone]</strong> +355(0)696482681</p>
+        <p>Hours: <strong>[Hours]</strong> 10.00-18.00, Mon-Sat</p>
+        <div class="follow">
+            <h4>Follow us</h4>
+            <div class="icon">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-pinterest-p"></i>
+                <i class="fab fa-youtube"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h4>About</h4>
+        <a href="#">Delivery Informations</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Contact Us</a>
+    </div>
+    <div class="col">
+        <h4>My Account</h4>
+        <a href="#">Sign In</a>
+        <a href="#">View Cart</a>
+        <a href="#">My Wishlist</a>
+        <a href="#">Track My Order</a>
+        <a href="#">Help</a>
+    </div>
+    <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="row">
+            <img src="Foto/pay/app.jpg" alt="">
+            <img src="Foto/pay/play.jpg" alt="">
+        </div>
+        <p>Secured Payment Gateways</p>
+        <img src="Foto/pay/pay.png" alt="">
+    </div>
+</footer>   
+
+
+<script src="script.js"></script>
+
+    </body>
+
+</html>
